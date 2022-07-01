@@ -14,7 +14,7 @@ public class GUITest {
         //frame.setContentPane(panel);
         frame.add(textField);
         textField.setText("请输入 ");
-        JButton button =new JButton("getText");
+        JButton button =new JButton("");
         frame.setLayout(null);
         panel.add(button);
         frame.add(panel);
