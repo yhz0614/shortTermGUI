@@ -5,17 +5,18 @@ import java.util.List;
 public class excelWork {
     public static char separator=',';//分隔符
     public static  void main(String[] args) throws Exception{
-        String filePath="E:\\IntelliJ IDEA\\shortTerm\\GUI\\persons.csv";
+        String filePath_persons="E:\\IntelliJ IDEA\\shortTerm\\GUI\\persons.csv";//人员数据
+        String filepath_administrator="E:\\C++\\short_term\\administrator.csv";//管理员账户
         List<String[]> dataList= new ArrayList<String[]>();
-        //
-        //dataList.add(new String[]{"账号","姓名","年龄","性别","身份证号","行程记录","疫苗接种情况","健康码颜色","核酸情况"});
 
-    readCSV(filePath);
+    readPersonsCSV(filePath_persons);
+    dataList=readAdministrator(filepath_administrator);
+
     }
 
 
     //读取CSV文件
-    public static List<String[]> readCSV(String filePath) throws Exception {
+    public static List<String[]> readPersonsCSV(String filePath) throws Exception {
         CsvReader read = null;
         List<String[]> dataList = new ArrayList<String[]>();
         try {
@@ -52,4 +53,33 @@ public class excelWork {
     return dataList;
 
     }
+    public static List<String[]> readAdministrator(String filePath) throws Exception {
+        CsvReader read = null;
+        List<String[]> AdministratorList = new ArrayList<String[]>();//存放账户
+        try {
+            read = new CsvReader(filePath, separator, Charset.forName("GBK"));
+            //读表头
+            read.readHeaders();
+            //String[] headArray = read.getHeaders();
+            System.out.println(" ");
+            //读取数据
+            while (read.readRecord()) {
+                //System.out.println(read.getRawRecord());
+                //System.out.print(read.get(0)+"\t");
+                //AdministratorList.add(read.getValues());
+                //System.out.print(read.get(1)+"\t\n");
+                AdministratorList.add(read.getValues());
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (read != null) {
+                read.close();
+            }
+        }
+        return AdministratorList;
+}
+
 }
